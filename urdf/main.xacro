@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robo_arm">
+    
+    <xacro:include filename = "inertial_macros.xacro"/>
+
+    <material name = "white">
+        <color rgba = "1 1 1 1" />
+    </material>
+
+    <material name = "orange">
+        <color rgba = "1 0.3 0.1 1" />
+    </material>
+
+    <material name = "blue">
+        <color rgba = "0.2 0.2 1 1" />
+    </material>
+
+    <material name = "black">
+        <color rgba = "0 0 0 1" />
+    </material>
+
+    <!-- Base Link -->
+    <link name="base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.025"/>
+            <geometry>
+                <cylinder radius="0.2" length="0.05"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.025"/>
+            <geometry>
+                <cylinder radius="0.2" length="0.05"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass = "0.1" radius = "0.2" length = "0.05">
+            <origin rpy="0 0 0" xyz="0 0 0.025"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="base_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+
+    <!-- Base Joint -->
+    <joint name="base_joint" type="continuous">
+        <origin xyz="0.0 0.0 0.05" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="arm_base"/>
+        <axis xyz="0.0 0.0 1"/>
+        <limit effort="300.0" velocity="1.0"/>
+    </joint>
+
+    <transmission name="base_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <actuator name="$base_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+        <joint name="base_joint">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+    </transmission>
+
+    <!-- Base of arm -->
+    <link name="arm_base">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.025"/>
+            <geometry>
+                <cylinder radius="0.2" length="0.05"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.025"/>
+            <geometry>
+                <cylinder radius="0.2" length="0.05"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass = "0.1" radius = "0.2" length = "0.05">
+            <origin rpy="0 0 0" xyz="0 0 0.025"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="arm_base">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <!-- First revolute joint -->
+    <joint name="r1_joint" type="continuous">
+        <origin xyz="0.0 0.0 0.1" rpy="${pi/2} 0.0 0.0"/>
+        <parent link="arm_base"/>
+        <child link="actuator_1"/>
+        <axis xyz="0.0 0.0 1"/>
+        <limit effort="300.0" velocity="1.0"/>
+    </joint>
+
+    <transmission name="r1_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <actuator name="$r1_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+        <joint name="r1_joint">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+    </transmission>
+
+    <!-- First actuator -->
+    <link name="actuator_1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.1"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass = "0.1" radius = "0.05" length = "0.1">
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="actuator_1">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <!-- First actuator-link joint -->
+    <joint name="f1_joint" type="fixed">
+        <parent link="actuator_1"/>
+        <child link="link_1"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </joint>
+    
+    <!-- First link -->
+    <link name="link_1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0.3 0"/>
+            <geometry>
+                <box size="0.1 0.5 0.1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0.3 0"/>
+            <geometry>
+                <box size="0.1 0.5 0.1"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass = "0.5" x = "0.1" y = "0.5" z = "0.1">
+            <origin rpy="0 0 0" xyz="0 0.3 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="link_1">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <!-- Second revolute joint -->
+    <joint name="r2_joint" type="continuous">
+        <origin xyz="0.0 0.6 0" rpy=".00 0.0 0.0"/>
+        <parent link="link_1"/>
+        <child link="actuator_2"/>
+        <axis xyz="0.0 0.0 1"/>
+        <limit effort="300.0" velocity="1.0"/>
+    </joint>
+
+    <transmission name="r2_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <actuator name="$r2_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+        <joint name="r2_joint">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+    </transmission>
+
+    <!-- Second actuator -->
+    <link name="actuator_2">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.1"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass = "0.1" radius = "0.05" length = "0.1">
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="actuator_2">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <!-- Second actuator-link joint -->
+    <joint name="f2_joint" type="fixed">
+        <parent link="actuator_2"/>
+        <child link="link_2"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </joint>
+    
+    <!-- Second link -->
+    <link name="link_2">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0.3 0"/>
+            <geometry>
+                <box size="0.1 0.5 0.1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0.3 0"/>
+            <geometry>
+                <box size="0.1 0.5 0.1"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass = "0.5" x = "0.1" y = "0.5" z = "0.1">
+            <origin rpy="0 0 0" xyz="0 0.3 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="link_2">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    
+    <!-- Add ROS plugin so we can interact with our robot -->
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/</robotNamespace>
+        </plugin>
+    </gazebo>
+</robot>
