@@ -69,4 +69,6 @@ git status
 git add .
 git status
 git commit -m "type your message here"
+git push
+git status
 ```
