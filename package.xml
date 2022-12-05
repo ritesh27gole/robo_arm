@@ -3,7 +3,7 @@
   <name>robo_arm</name>
   <version>0.0.0</version>
   <description>The package contains robotic arm</description>
-  <maintainer email="studyritesh27gole@gmail.com">nam</maintainer>
+  <maintainer email="studyritesh27gole@gmail.com">Ritesh Gole</maintainer>
   <license>TODO</license>
 
   <buildtool_depend>catkin</buildtool_depend>

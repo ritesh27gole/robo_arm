@@ -34,7 +34,7 @@
                 <cylinder radius="0.2" length="0.05"/>
             </geometry>
         </collision>
-        <xacro:inertial_cylinder mass = "0.1" radius = "0.2" length = "0.05">
+        <xacro:inertial_cylinder mass = "100" radius = "0.2" length = "0.05">
             <origin rpy="0 0 0" xyz="0 0 0.025"/>
         </xacro:inertial_cylinder>
     </link>
@@ -49,16 +49,16 @@
         <parent link="base_link"/>
         <child link="arm_base"/>
         <axis xyz="0.0 0.0 1"/>
-        <limit effort="300.0" velocity="1.0"/>
+        <limit effort="100000.0" velocity="0.25"/>
     </joint>
 
     <transmission name="base_transmission">
         <type>transmission_interface/SimpleTransmission</type>
-        <actuator name="$base_motor">
+        <actuator name="base_motor">
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
         <joint name="base_joint">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </joint>
     </transmission>
 
@@ -91,16 +91,16 @@
         <parent link="arm_base"/>
         <child link="actuator_1"/>
         <axis xyz="0.0 0.0 1"/>
-        <limit effort="300.0" velocity="1.0"/>
+        <limit effort="100000.0" velocity="0.25"/>
     </joint>
 
     <transmission name="r1_transmission">
         <type>transmission_interface/SimpleTransmission</type>
-        <actuator name="$r1_motor">
+        <actuator name="r1_motor">
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
         <joint name="r1_joint">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </joint>
     </transmission>
 
@@ -148,7 +148,7 @@
                 <box size="0.1 0.5 0.1"/>
             </geometry>
         </collision>
-        <xacro:inertial_box mass = "0.5" x = "0.1" y = "0.5" z = "0.1">
+        <xacro:inertial_box mass = "0.1" x = "0.1" y = "0.5" z = "0.1">
             <origin rpy="0 0 0" xyz="0 0.3 0"/>
         </xacro:inertial_box>
     </link>
@@ -163,16 +163,16 @@
         <parent link="link_1"/>
         <child link="actuator_2"/>
         <axis xyz="0.0 0.0 1"/>
-        <limit effort="300.0" velocity="1.0"/>
+        <limit effort="100000.0" velocity="0.25"/>
     </joint>
 
     <transmission name="r2_transmission">
         <type>transmission_interface/SimpleTransmission</type>
-        <actuator name="$r2_motor">
+        <actuator name="r2_motor">
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
         <joint name="r2_joint">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </joint>
     </transmission>
 
@@ -220,7 +220,7 @@
                 <box size="0.1 0.5 0.1"/>
             </geometry>
         </collision>
-        <xacro:inertial_box mass = "0.5" x = "0.1" y = "0.5" z = "0.1">
+        <xacro:inertial_box mass = "0.1" x = "0.1" y = "0.5" z = "0.1">
             <origin rpy="0 0 0" xyz="0 0.3 0"/>
         </xacro:inertial_box>
     </link>
