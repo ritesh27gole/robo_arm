@@ -49,7 +49,7 @@ source devel/setup.bash
 ```
 To run the main node run this command
 ```
-rosrun robo_arm my_publisher
+rosrun robo_arm controller
 ```
 
 To send a command to the base
