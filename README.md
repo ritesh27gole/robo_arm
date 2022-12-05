@@ -61,3 +61,12 @@ To see the ROS node tree run this command
 ```
 rqt_graph
 ```
+# Commit to this repository
+
+Go to ~/robo_arm_ws/src/robo_arm and run this commands in terminal
+```
+git status
+git add .
+git status
+git commit -m "type your message here"
+```
