@@ -1,7 +1,8 @@
 # Robotic Arm
 
 ## Prerequisites
-- Have Ubuntu 20.04 and ROS Noetic installed
+- Have Ubuntu 20.04 and ROS Noetic installed+
+- For easy URDF model development: https://jupyterlab-urdf.readthedocs.io/en/latest/index.html#
 
 ## Cloning the repo
 From home directory create /robo_arm_ws/src folder and run the following command
